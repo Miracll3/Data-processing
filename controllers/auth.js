@@ -1,6 +1,8 @@
 const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const session = require('express-session');
+
 
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -8,6 +10,22 @@ const db = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE
 })
+
+
+
+exports.profile = async(req, res)=>{
+    try{
+        const {name, surname}= req.body;
+
+        console.log('Profile page works')
+
+        
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 
 exports.login = async(req, res) =>{
     try{
@@ -40,7 +58,7 @@ exports.login = async(req, res) =>{
                     httpOnly: true
                 }
                 res.cookie('jwt',token,cookieOptions);
-                res.status(200).redirect("/");
+                res.status(200).redirect("/profile");
             }
         })
     }
@@ -89,3 +107,4 @@ exports.register = (req,res) => {
     
     /*res.send("Form submitted");*/
 }
+
